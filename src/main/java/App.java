@@ -30,6 +30,14 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/categories/:id/tasks/new", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Category category = Category.find(Integer.parseInt(request.params(":id")));
+      model.put("category", category);
+      model.put("template", "templates/category-tasks-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+    
     get("/categories/:category_id/tasks/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Category category = Category.find(Integer.parseInt(request.params(":category_id")));
@@ -105,13 +113,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("categories/:id/tasks/new", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      Category category = Category.find(Integer.parseInt(request.params(":id")));
-      model.put("category", category);
-      model.put("template", "templates/category-tasks-form.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+
 
     // get("/tasks", (request, response) -> {
     //   Map<String, Object> model = new HashMap<String, Object>();
